@@ -1,107 +1,61 @@
 package fr.univavignon.alize.AndroidALIZEDemo;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
 import AlizeSpkRec.AlizeException;
-import fr.univavignon.alize.AndroidALIZEDemo.speakerslist.Speaker;
-import fr.univavignon.alize.AndroidALIZEDemo.speakerslist.SpeakerListAdapter;
 
-/**
- * This activity is meant to manage the speakers list.
- *
- * @author Nicolas Duret
- */
+
 public class SpeakersListActivity extends BaseActivity {
 
-    private String[] speakers;
-    private TextView noSpeakers;
-    private SpeakerListAdapter adapter;
-    private Button identifyButton, removeAll;
+    private Button identifyButton, removeSpeakerButton;
+    private TextView voiceExistingInfo;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        try {
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.speakers_list);
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.speakers_list);
 
-            //Setup the ListViewAdapter
-            adapter = new SpeakerListAdapter(SpeakersListActivity.this, R.layout.list_item, new ArrayList<Speaker>());
-            ListView speakerListView = findViewById(R.id.speakerListView);
-            speakerListView.setAdapter(adapter);
 
-            speakers = demoSpkRecSystem.speakerIDs();    //Get all speakers name.
-            noSpeakers = findViewById(R.id.no_speakers);
-            removeAll = findViewById(R.id.removeall_button);
-            identifyButton = findViewById(R.id.identify_button);
-            noSpeakers.setVisibility(View.INVISIBLE);
+        voiceExistingInfo = findViewById(R.id.voiceInfo);
+        removeSpeakerButton = findViewById(R.id.removeall_button);
+        identifyButton = findViewById(R.id.identify_button);
 
-            clearAndFill();
-            updateListViewContent();
+        updateAvailableFunctionality();
 
-        } catch (AlizeException e) {
-            e.printStackTrace();
+    }
+
+    private void switchVoiceInfoStatus(boolean isRecorded) {
+
+        if (isRecorded) {
+            voiceExistingInfo.setText(R.string.voice_recorded);
+            voiceExistingInfo.setBackgroundColor(getResources().getColor(R.color.colorPrimaryDark));
+            identifyButton.setEnabled(true);
+            removeSpeakerButton.setEnabled(true);
+        } else {
+            voiceExistingInfo.setText(R.string.voice_not_recorded);
+            voiceExistingInfo.setBackgroundColor(getResources().getColor(R.color.black));
+            identifyButton.setEnabled(false);
+            removeSpeakerButton.setEnabled(false);
         }
     }
 
-    public void updateSpeakerOnClickHandler(View v) {
-        final Speaker itemToUpdate = (Speaker)v.getTag();
-        startActivity(EditSpeakerModelActivity.class, new HashMap<String, Object>(){{
-            put("speakerId", itemToUpdate.getId());
-        }});
-    }
 
-    public void testSpeakerOnClickHandler(View v) {
-        final Speaker itemToTest = (Speaker)v.getTag();
-        startActivity(VerificationActivity.class, new HashMap<String, Object>(){{
-            put("speakerId", itemToTest.getId());
-        }});
-    }
-
-    public void removeSpeakerOnClickHandler(View v) {
-        Speaker itemToRemove = (Speaker)v.getTag();
-        String speakerId = itemToRemove.getId();
-        try {
-            if (!speakerId.isEmpty() && !itemToRemove.getName().isEmpty()) {
-                //Remove the speaker speakerId from the Alize system.
-                demoSpkRecSystem.removeSpeaker(speakerId);
-            }
-            updateSpeakersListObject();
-
-        } catch (AlizeException e) {
-            e.printStackTrace();
-            makeToast(getString(R.string.error_remove_speaker));
-        }
-        adapter.remove(itemToRemove);
-        updateListViewContent();
-    }
-
-    public void addSpeaker(View v) {
-        startActivity(EditSpeakerModelActivity.class, new HashMap<String, Object>(){{
-            put("speakerId", "");
-        }});
+    public void updateSpeaker(View v) {
+        startActivity(new Intent(this, EditSpeakerModelActivity.class));
     }
 
     public void identify(View v) {
-        startActivity(VerificationActivity.class, new HashMap<String, Object>(){{
-            put("speakerId", "");
-        }});
+        startActivity(new Intent(this, VerificationActivity.class));
     }
 
-    public void removeAll(View v) {
-        //TODO find why removeAllSpeakers() doesn't works
+    public void removeSpeaker(View v) {
         try {
-            //Remove all the speakers from the Alize system.
-            demoSpkRecSystem.removeAllSpeakers();
-            adapter.clear();
-            updateSpeakersListObject();
-            updateListViewContent();
+            speakerVerificationManager.removeSpeaker();
+            switchVoiceInfoStatus(false);
         } catch (AlizeException e) {
             e.printStackTrace();
         }
@@ -111,49 +65,19 @@ public class SpeakersListActivity extends BaseActivity {
     public void onResume() {
         try {
             super.onResume();
-            clearAndFill();
-            updateListViewContent();
+            updateAvailableFunctionality();
         } catch (Throwable e) {
             e.printStackTrace();
         }
     }
 
-    /**
-     * Clear the list and fill it.
-     */
-    private void clearAndFill() throws AlizeException {
-        updateSpeakersListObject();
-        if (speakers.length == 0) {
-            return;
-        }
-        adapter.clear();
-        for (String speakerId : speakers) {
-            adapter.insert(new Speaker(speakerId, demoSpkRecSystem.getSpeakerName(speakerId)), adapter.getCount());
-        }
+
+    private void updateAvailableFunctionality() {
+        if (!speakerVerificationManager.speakerExists()) switchVoiceInfoStatus(false);
+        else switchVoiceInfoStatus(true);
     }
 
-    /**
-     * Update elements of the activity.
-     */
-    private void updateListViewContent() {
-        if (speakers.length == 0) {
-            if (adapter.getCount() == 0) {
-                noSpeakers.setVisibility(View.VISIBLE);
-                identifyButton.setEnabled(false);
-                removeAll.setEnabled(false);
-            }
-            else
-                noSpeakers.setVisibility(View.INVISIBLE);
-        }
-        else {
-            noSpeakers.setVisibility(View.INVISIBLE);
-            identifyButton.setEnabled(true);
-            removeAll.setEnabled(true);
-        }
-    }
 
-    private void updateSpeakersListObject() throws AlizeException {
-        speakers = demoSpkRecSystem.speakerIDs(); //Get all speakers ids.
-    }
+
 
 }

@@ -4,14 +4,13 @@
     <string name="verification">Verification</string>
     <string name="no_speakers">There are no speakers in the system at the moment.</string>
     <string name="edit_speaker_model">Edit Speaker Model</string>
-    <string name="new_speaker">Add speaker</string>
+    <string name="update_speaker">Update speaker</string>
     <string name="empty" />
     <string name="test_speaker">Test</string>
-    <string name="update_speaker">Update</string>
     <string name="speaker_name">Speaker name</string>
     <string name="update_speaker_button">Update Speaker</string>
-    <string name="identify">Identify</string>
-    <string name="remove_all">Remove All Speakers</string>
+    <string name="identify">Verify</string>
+    <string name="remove_speaker">Remove speaker</string>
     <string name="default_time">00:00:00</string>
     <string name="speakerExist">This speaker name already exists!</string>
     <string name="recording_completed">Recording Completed</string>
@@ -38,4 +37,8 @@
     <string name="identify_no_match_text">No match</string>
     <string name="match_score">Score:</string>
     <string name="verification_failed_not_enough_features">There was not enough voice in the sound.</string>
+    <string name="voice_not_recorded">There\'s no speaker</string>
+    <string name="voice_recorded">Voice was recorded</string>
+    <string name="init_speaker_btn">Initialize speaker</string>
+    <string name="launch_app_btn">Launch app</string>
 </resources>
