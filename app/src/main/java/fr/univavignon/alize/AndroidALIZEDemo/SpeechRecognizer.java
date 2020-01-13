@@ -16,7 +16,7 @@ import java.util.List;
 
 import AlizeSpkRec.AlizeException;
 
-public class SpeechRecognizer implements Runnable {
+public class SpeechRecognizer implements Runnable{
 
     private final List<short[]> audioPackets;
     private KaldiRecognizer recognizer;
@@ -25,12 +25,14 @@ public class SpeechRecognizer implements Runnable {
     private Thread recognitionThread = null;
 
 
+
     public SpeechRecognizer(Model model, List<short[]> audioPackets, RecognitionListener listener) {
         recognizer = new KaldiRecognizer(model, 16000.0f);
         this.listener = listener;
 
         this.audioPackets = audioPackets;
     }
+
 
 
     public void startRecognition() {
@@ -44,15 +46,16 @@ public class SpeechRecognizer implements Runnable {
     }
 
 
+
     @Override
     public void run() {
+        short[] nextElement;
 
         while (!Thread.currentThread().isInterrupted() || (!audioPackets.isEmpty())) {
-            short[] nextElement = null;
+            nextElement = null;
 
             synchronized (audioPackets) {
                 if (!audioPackets.isEmpty()) {
-
                     nextElement = audioPackets.get(0);
                     audioPackets.remove(0);
                 }
@@ -60,39 +63,41 @@ public class SpeechRecognizer implements Runnable {
             if (nextElement != null) {
                 System.out.println(nextElement.length);
 
-                boolean isFinal = recognizer.AcceptWaveform(nextElement, nextElement.length);
+                    boolean isFinal = recognizer.AcceptWaveform(nextElement, nextElement.length);
 
 
-                String result;
-                if (isFinal) {
-                    result = recognizer.Result();
-                    System.out.println("FINAL RESULT IS " + result);
+                    String result;
+                    if (isFinal) {
+                        result = recognizer.Result();
+                        System.out.println("FINAL RESULT IS " + result);
 //                        System.out.println("FINAL IS " + result);
 //                        if (!result.isEmpty()) {
 //                            mainHandler.post(new ResultEvent(recognizer.Result(), true));
 //                        }
-                } else {
-                    result = recognizer.PartialResult();
-                    result = result.split(":")[1];
-                    result = result.substring(2, result.length() - 2);
-                    if (!result.isEmpty()) {
-                        final String finalResult = result;
-                        mainHandler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                listener.onPartialResult(finalResult);
-                            }
-                        });
+                    } else {
+                        result = recognizer.PartialResult();
+                        result = result.split(":")[1];
+                        result = result.substring(2, result.length()-2);
+                        if (!result.isEmpty()) {
+                            final String finalResult = result;
+                            mainHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    //listener.onPartialResult(finalResult);
+                                }
+                            });
+
+                        }
 
                     }
-
-                }
 
 
             }
         }
 
     }
+
+
 
 
 }
