@@ -3,6 +3,8 @@
     package="fr.univavignon.alize.AndroidALIZEDemo">
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:icon="@mipmap/ic_launcher"
@@ -10,6 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".SpeechScanningActivity"></activity>
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -17,9 +20,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SpeakersListActivity">
-
-        </activity>
+        <activity android:name=".SpeakersListActivity"></activity>
         <activity android:name=".BaseActivity" />
         <activity
             android:name=".EditSpeakerModelActivity"
@@ -27,7 +28,7 @@
         <activity
             android:name=".VerificationActivity"
             android:label="@string/verification" />
-        <activity android:name=".RecordActivity" />
+        <activity android:name=".SpeakerVerificationFitActivity" />
     </application>
 
 </manifest>

@@ -55,4 +55,8 @@ public class MainActivity extends AppCompatActivity {
             findViewById(R.id.launch_btn).setEnabled(false);
         }
     }
+
+    public void run_scanning(View view) {
+        startActivity(new Intent(this, SpeechScanningActivity.class));
+    }
 }

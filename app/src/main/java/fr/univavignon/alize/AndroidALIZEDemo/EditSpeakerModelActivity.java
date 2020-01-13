@@ -1,18 +1,13 @@
 package fr.univavignon.alize.AndroidALIZEDemo;
 
-import android.content.ContentProvider;
-import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import AlizeSpkRec.AlizeException;
-import AlizeSpkRec.IdAlreadyExistsException;
 
 
-public class EditSpeakerModelActivity extends RecordActivity {
+public class EditSpeakerModelActivity extends SpeakerVerificationFitActivity {
 
     private Button updateSpeakerButton;
 
@@ -59,12 +54,10 @@ public class EditSpeakerModelActivity extends RecordActivity {
                 speakerVerificationManager.resetAudio();
                 speakerVerificationManager.resetFeatures();
 
-
-
                 finish();
             } catch (AlizeException e) {
                 e.printStackTrace();
-            } catch (Throwable e) { //TODO catch proper exception
+            } catch (Throwable e) {
                 e.printStackTrace();
                 Utils.makeToast(getApplicationContext(), getResources().getString(R.string.recording_not_completed));
             }
@@ -77,11 +70,5 @@ public class EditSpeakerModelActivity extends RecordActivity {
             Utils.makeToast(this, getResources().getString(R.string.no_sound_detected_recoloc));
         } else updateSpeakerButton.setEnabled(true);
 
-//        try {
-//            speakerVerificationManager.resetAudio();
-//            speakerVerificationManager.resetFeatures();
-//        } catch (AlizeException e) {
-//            e.printStackTrace();
-//        }
     }
 }

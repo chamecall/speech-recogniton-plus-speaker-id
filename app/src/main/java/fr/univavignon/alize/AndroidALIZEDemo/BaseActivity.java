@@ -32,7 +32,6 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            System.out.println("I'M HERE");
             try {
                 speakerVerificationManager.resetAudio();
                 speakerVerificationManager.resetFeatures();
@@ -43,9 +42,5 @@ public class BaseActivity extends AppCompatActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
-
-
-
-
 
 }

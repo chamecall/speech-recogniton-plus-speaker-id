@@ -23,9 +23,8 @@ public class SpeakerVerifier implements Runnable {
     public void startSpeakerVerifier() {
         if (recordExists) {
             try {
-                //Reset input, since we will not make any more use of this audio signal.
-                speakerVerificationManager.resetAudio();       //Reset the audio samples of the Alize system.
-                speakerVerificationManager.resetFeatures();    //Reset the features of the Alize system.
+                speakerVerificationManager.resetAudio();
+                speakerVerificationManager.resetFeatures();
             } catch (AlizeException e) {
                 e.printStackTrace();
             }
@@ -67,7 +66,6 @@ public class SpeakerVerifier implements Runnable {
             if (nextElement != null) {
                 System.out.println(nextElement.length);
                 try {
-                    //Receive an audio signal as 16-bit signed integer linear PCM, parameterize it and add it to the feature server.
                     speakerVerificationManager.addAudio(nextElement);
                 } catch (Throwable e) {
                     e.printStackTrace();

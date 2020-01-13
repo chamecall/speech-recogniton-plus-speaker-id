@@ -9,8 +9,8 @@ public class SRAudioPacket {
         this.text = text;
     }
 
-    public String getText() {
-        return text;
+    public boolean packetHasText() {
+        return !text.isEmpty();
     }
 
     public short[] getAudioPacket() {

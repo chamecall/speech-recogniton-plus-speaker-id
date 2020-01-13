@@ -9,7 +9,7 @@ import AlizeSpkRec.AlizeException;
 import AlizeSpkRec.SimpleSpkDetSystem;
 
 
-public class VerificationActivity extends RecordActivity {
+public class VerificationActivity extends SpeakerVerificationFitActivity {
 
     private final int ERROR_COLOR = Color.RED;
     private final int SUCCESS_COLOR = Color.rgb(0, 150, 0);

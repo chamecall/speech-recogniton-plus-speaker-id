@@ -41,4 +41,7 @@
     <string name="voice_recorded">Voice was recorded</string>
     <string name="init_speaker_btn">Initialize speaker</string>
     <string name="launch_app_btn">Launch app</string>
+    <string name="initializing_status">Loading model</string>
+    <string name="scanning_status">Speech scanning</string>
+
 </resources>
