@@ -20,13 +20,13 @@ public class BaseActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-        try {
-            speakerVerificationManager = SpeakerVerificationManager.getSharedInstance(BaseActivity.this);
-        }
-        catch (AlizeException | IOException e) {
-            e.printStackTrace();
-        }
+//
+//        try {
+//            speakerVerificationManager = SpeakerVerificationManager.getSharedInstance(BaseActivity.this);
+//        }
+//        catch (AlizeException | IOException e) {
+//            e.printStackTrace();
+//        }
     }
 
     @Override

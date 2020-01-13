@@ -36,7 +36,7 @@ public class SpeakerVerificationFitActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        audioRecorder = new AudioRecorder(null, audioPackets);
+        audioRecorder = new AudioRecorder(audioPackets);
         speakerVerifier = new SpeakerVerifier(speakerVerificationManager, audioPackets);
         timer = new Timer(timeText);
     }

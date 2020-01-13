@@ -59,6 +59,8 @@ public class SpeechScanningActivity extends BaseActivity implements RecognitionL
         resultTV = findViewById(R.id.result_text_view);
         setUiState(STATE_START);
 
+        audioRecorder = new AudioRecorder(audioPackets);
+
 
         // load model
         new SetupTask(this).execute();
@@ -110,7 +112,7 @@ public class SpeechScanningActivity extends BaseActivity implements RecognitionL
 
 
         audioRecorder.startRecord();
-        //speechRecognizer.startRecognition();
+        speechRecognizer.startRecognition();
         //speakerVerifier.startSpeakerVerifier();
 
 
@@ -172,9 +174,8 @@ public class SpeechScanningActivity extends BaseActivity implements RecognitionL
             if (result != null) {
                 activityReference.get().setErrorState(result.getMessage());
             } else {
-//                activityReference.get().speechRecognizer = new SpeechRecognizer(model,
-//                        activityReference.get().audioPackets, activityReference.get());
-                activityReference.get().audioRecorder = new AudioRecorder(model, activityReference.get().audioPackets);
+                activityReference.get().speechRecognizer = new SpeechRecognizer(model,
+                        activityReference.get().audioPackets, activityReference.get());
 
                 activityReference.get().startRecording();
                 activityReference.get().setUiState(STATE_READY);

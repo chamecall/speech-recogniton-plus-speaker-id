@@ -19,11 +19,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        try {
-            speakerVerificationManager = SpeakerVerificationManager.getSharedInstance(this);
-        } catch (IOException | AlizeException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            speakerVerificationManager = SpeakerVerificationManager.getSharedInstance(this);
+//        } catch (IOException | AlizeException e) {
+//            e.printStackTrace();
+//        }
+        switchVoiceInfoStatus(true);
+
     }
 
 
@@ -31,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     public void onResume() {
         try {
             super.onResume();
-            updateAvailableFunctionality();
         } catch (Throwable e) {
             e.printStackTrace();
         }
