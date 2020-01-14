@@ -64,7 +64,6 @@ public class SpeakerVerifier implements Runnable {
                 }
             }
             if (nextElement != null) {
-                System.out.println(nextElement.length);
                 try {
                     speakerVerificationManager.addAudio(nextElement);
                 } catch (Throwable e) {

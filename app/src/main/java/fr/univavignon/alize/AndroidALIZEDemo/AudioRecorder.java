@@ -32,6 +32,7 @@ public class AudioRecorder  implements Runnable{
                 RECORDER_AUDIO_ENCODING, minInternalBufferSize * 4);
 
 
+
     }
 
     public void startRecord() {

@@ -61,7 +61,6 @@ public class SpeechScanningActivity extends BaseActivity implements RecognitionL
 
         audioRecorder = new AudioRecorder(audioPackets);
 
-
         // load model
         new SetupTask(this).execute();
 

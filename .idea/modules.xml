@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/aars/aars.iml" filepath="$PROJECT_DIR$/aars/aars.iml" />
       <module fileurl="file://$PROJECT_DIR$/alize/alize.iml" filepath="$PROJECT_DIR$/alize/alize.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/kaldi-android-5.2/kaldi-android-5.2.iml" filepath="$PROJECT_DIR$/kaldi-android-5.2/kaldi-android-5.2.iml" />

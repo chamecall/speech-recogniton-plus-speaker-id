@@ -28,5 +28,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation project(":alize")
     implementation project(path: ':models')
-    implementation project(path: ':aars')
+    implementation project(path: ':kaldi-android-5.2')
 }
