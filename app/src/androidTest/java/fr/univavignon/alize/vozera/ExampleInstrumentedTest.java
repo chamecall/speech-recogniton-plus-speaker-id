@@ -1,4 +1,4 @@
-package fr.univavignon.alize.AndroidALIZEDemo;
+package fr.univavignon.alize.vozera;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

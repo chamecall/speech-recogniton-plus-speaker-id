@@ -1,4 +1,4 @@
-package fr.univavignon.alize.AndroidALIZEDemo;
+package fr.univavignon.alize.vozera;
 
 import org.junit.Test;
 
